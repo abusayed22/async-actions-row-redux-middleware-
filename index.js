@@ -1,4 +1,5 @@
-const { createStore } = require("redux");
+const { createStore, applyMiddleware } = require("redux");
+const { delayActionMiddleware } = require("./middleware");
 
 // inisital state
 const inisitalState = {
@@ -33,7 +34,7 @@ const todoReducer = (state = inisitalState, aciton) => {
 
 
 // create store 
-const store = createStore(todoReducer);
+const store = createStore(todoReducer, applyMiddleware(delayActionMiddleware));
 
 
 // subscribe for state change which provider in react
@@ -45,5 +46,5 @@ store.subscribe(() => {
 // dispatch with value
 store.dispatch({
     type: "todo/added",
-    payload: 'Learn redux'
+    payload: 'Learn Redux'
 })
