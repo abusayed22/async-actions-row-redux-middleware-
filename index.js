@@ -1,0 +1,3 @@
+
+// inisital state
+const inisitalState = [ ]
