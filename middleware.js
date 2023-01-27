@@ -20,6 +20,7 @@ const fetchDataMiddlewre = (store) => (next) => async(action) => {
         const res = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
         const todos = await res.json()  
         
+        // this dispatch for loaded 
         store.dispatch({
             type: "todo/loaded",
             payload: todos
