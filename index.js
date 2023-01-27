@@ -1,5 +1,5 @@
 const { createStore, applyMiddleware } = require("redux");
-const { delayActionMiddleware } = require("./middleware");
+const { delayActionMiddleware, fetchDataMiddlewre } = require("./middleware");
 
 // inisital state
 const inisitalState = {
@@ -21,10 +21,7 @@ const todoReducer = (state = inisitalState, aciton) => {
         case "todo/loaded":
             return {
                 ...state,
-                todo: [
-                    ...state.todo,
-                    {title: aciton.payload}
-                ]
+                todo: aciton.payload
             }
 
             return state;
@@ -34,7 +31,7 @@ const todoReducer = (state = inisitalState, aciton) => {
 
 
 // create store 
-const store = createStore(todoReducer, applyMiddleware(delayActionMiddleware));
+const store = createStore(todoReducer, applyMiddleware(delayActionMiddleware ,fetchDataMiddlewre));
 
 
 // subscribe for state change which provider in react
@@ -44,7 +41,15 @@ store.subscribe(() => {
 });
 
 // dispatch with value
+//TODO: store.dispatch({
+//     type: "todo/added",
+//     payload: 'Learn Redux'
+// })
+
+// dispatch for fetch data from API
+// just checing for fetch
 store.dispatch({
-    type: "todo/added",
-    payload: 'Learn Redux'
+    type: "todos/fetch"
 })
+
+

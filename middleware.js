@@ -15,5 +15,19 @@ const delayActionMiddleware = (store) => (next) => (aciton) => {
     return next(aciton)
 }
 
+const fetchDataMiddlewre = (store) => (next) => async(action) => {
+    if(action.type === "todos/fetch") {
+        const res = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+        const todos = await res.json()  
+        
+        store.dispatch({
+            type: "todo/loaded",
+            payload: todos
+        })
+        console.log(`Number of todos ${store.getState().todo.length}`)
+        return 
+    }
+    return next(action);
+}
 
-module.exports = {delayActionMiddleware}
+module.exports = {delayActionMiddleware , fetchDataMiddlewre}
